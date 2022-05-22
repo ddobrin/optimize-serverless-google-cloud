@@ -24,7 +24,8 @@ Optimizing any app for Cloud Run requires a balance of different aspects to be c
 - resource consumption (memory & CPU)
 - concurrency
 - image size
-- costs
+- easy maintainability
+- lower costs
 
 Some aspects need to be balanced, others such as container and runtime security are mandatory.
 
@@ -37,10 +38,10 @@ A set of services is provided to illustrate the different points, following this
 ![App](images/AppArch.png)
 
 
-### Project & Source Code
+## Project & Source Code
 Source code recommendations can be grouped into few distinct categories:
 
-**Project**
+### Project
 * Java - Use latest LTS version 
     * Java 17 currently 
     * Better performance, security and resource consumption are achieved by simply building and running the app with the latest Java LTS release
@@ -54,19 +55,31 @@ Source code recommendations can be grouped into few distinct categories:
     * [Spring Native dependencies](https://docs.spring.io/spring-native/docs/current/reference/htmlsingle/#_add_the_spring_native_dependency)
     * [Google Cloud BOM](https://cloud.google.com/java/docs/bom)
     
-**Spring**
+### Spring
 * Use the latest version of Spring - 2.7.0 currently
     * Spring releases constantly fix issues and CVEs in the frameworks and their dependencies
-* Use 
+* Use [Spring profiles](https://docs.spring.io/spring-boot/docs/1.2.0.M1/reference/html/boot-features-profiles.html) for environment specific configuration segregation 
+* Do NOT include Developer tools in Production build
+    * Leverage Maven profiles for builds and remove [Spring Developer Tools ](https://docs.spring.io/spring-boot/docs/current/reference/html/using.html#using.devtools)
+* Use [lazy initialization](https://cloud.google.com/run/docs/tips/java#lazy-init) - potentially not useful if using `min-instances`, as init could have occurred
+* Avoid [class scanning](https://cloud.google.com/run/docs/tips/java#class-scanning) by limiting or avoiding class scanning
+    * Improvements are app dependent
+* Avoid [nested library](https://cloud.google.com/run/docs/tips/java#nested-jars) archives JARs - valid for OpenJDK (Hotspot)
+    * Building native images with GraalVM eliminates the problem as only classes retained during ahead-of-time compilation will be included  in the app image
 
-**Source code** 
+### Application source code
+* Externalize application configuration - do NOT hard-code configs or package config files into images!
 
-### Java Virtual Machine optimizations
+## Java Virtual Machine optimizations
 * Always set the garbage collector
     * Very important for longer running, smaller footprint Cloud Run services
-    * Default for Java 17 in OpenJDK is G1 GC for a `server class machine` - defined as >=2GB RAM and >= 2CPUs
-    * For lower setting, Serial GC is automatically set
-    * The [algorithm used](https://github.com/openjdk/jdk/blob/3121898c33fa3cc5a049977f8677105a84c3e50c/src/hotspot/share/runtime/os.cpp#L1673) for setting the garbage collector
+    * OpenJDK (Hotspot VM)
+        * G1 GC set as default for Java 17 for a `server class machine` - defined as >=1,792 MB RAM and >= 2CPUs
+        * Serial GC is automatically set for <1,1791 MB
+        * The [algorithm used](https://github.com/openjdk/jdk/blob/3121898c33fa3cc5a049977f8677105a84c3e50c/src/hotspot/share/runtime/os.cpp#L1673) for setting the garbage collector
+    * GraalVM 
+        * Serial GC is set by default for low memory footpring and small Java heapsizes
+        * [GC implementations](https://www.graalvm.org/22.0/reference-manual/native-image/MemoryManagement/#:~:text=A%20native%20image%2C%20when%20being,them%20is%20the%20memory%20management.) 
 * Use [container-aware versions](https://cloud.google.com/run/docs/tips/java#container-aware) when deploying a Java app in Cloud Run or a Kubernetes-based environment
     * container awareness is important as it allows deployments to cloud orchestration systems to limit container resources via CPU and memory quotas
     * Java 17 and Java 11 are container aware since general availability (GA)
@@ -84,5 +97,28 @@ Source code recommendations can be grouped into few distinct categories:
         * Major frameworks have AOT support: 
             * [Spring AOT](https://docs.spring.io/spring-native/docs/current/reference/htmlsingle/#aot)
 * Find the [optimal thread stack size](https://cloud.google.com/run/docs/tips/java#thread-stack) through profiling, to reduce heap consumption
+* Use Native Java images for containers
+
+## Testing 
+* Test the app with containers - use Testcontainers
+    * Use Google emulators for Google managed services
+    * Use open-source test containers for Postgres, MySQL and SQLServer for relational databases running in CloudSQL 
+
+## Build and Packaging
+* Use cloud-native buildpacks to build the container images
+* Minimize container images by using optimized container images
+
+## Observability
+
+
+## Operations and Resiliency
+
+
+## Caching 
+
+## Database 
+
+## Security
 * 
-    
+
+## Documentation

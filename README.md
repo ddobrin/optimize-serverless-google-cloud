@@ -59,7 +59,7 @@ Source code recommendations can be grouped into few distinct categories:
     * Spring releases constantly fix issues and CVEs in the frameworks and their dependencies
 * Use 
 
-**Source code** {#source}
+**Source code** 
 
 ### Java Virtual Machine optimizations
 * Always set the garbage collector
@@ -77,3 +77,12 @@ Source code recommendations can be grouped into few distinct categories:
     * Useful - [Java memory calculator](https://github.com/cloudfoundry/java-buildpack-memory-calculator)
 * Catch and [handle](https://cloud.google.com/run/docs/tips/java#handling_sequential_5xx_responses_under_the_container_runtime_contract) properly `Internal errors - 5XX` under the container runtime contract
     * see also [source code](#source)
+* Improve start-up time using `application class-data sharing` 
+    * Hotspot JVM - [Analysis](https://ionutbalosin.com/2022/04/application-dynamic-class-data-sharing-in-hotspot-jvm/), [slides](https://ionutbalosin.com/wp-content/uploads/2022/05/Techniques-for-a-faster-JVM-start-up.pdf) and [source code](https://github.com/ionutbalosin/faster-jvm-start-up-techniques/blob/main/app-dynamic-cds-hotspot/README.md)
+        * Spring Boot - use [shaded JARs](https://cloud.google.com/run/docs/tips/java#appcds-springboot)
+    * Native Images with GraalVM - use Ahead-of-Time (AOT) compilation
+        * Major frameworks have AOT support: 
+            * [Spring AOT](https://docs.spring.io/spring-native/docs/current/reference/htmlsingle/#aot)
+* Find the [optimal thread stack size](https://cloud.google.com/run/docs/tips/java#thread-stack) through profiling, to reduce heap consumption
+* 
+    

@@ -6,8 +6,12 @@ management:
     health:
       show-details: always
   endpoints:
+    enabled-by-default: true
     web:
       exposure:
         include: "*"
 
 quotes_url: http://localhost:8083     
+
+read_timeout: 5000
+write_timeout: 5000

@@ -3,8 +3,6 @@ package com.example;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import java.util.Collections;
-
 import org.hibernate.dialect.PostgreSQL95Dialect;
 import org.springframework.nativex.hint.TypeHint;
 import org.springframework.nativex.hint.ResourceHint;

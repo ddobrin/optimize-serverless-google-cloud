@@ -30,11 +30,24 @@ public class BffController {
   // logger
   private static final Logger logger = LoggerFactory.getLogger(BffController.class);
 
+  @Value("${read_timeout:5000}")
+  String readTimeout;
+  @Value("${write_timeout:5000}")
+  String writeTimeout;
+
+  static long read;
+  static long write;
+
+  @Value("${read_timeout:5000}")
+  public void setRead(String readTimeout){ BffController.read = Long.valueOf(readTimeout);}; 
+  @Value("${write_timeout:5000}")
+  public void setWrite(String writeTimeout){ BffController.read = Long.valueOf(writeTimeout);}; 
+
   // Instantiate OkHttpClient
   private static final OkHttpClient ok =
       new OkHttpClient.Builder()
-          .readTimeout(500, TimeUnit.MILLISECONDS)
-          .writeTimeout(500, TimeUnit.MILLISECONDS)
+          .readTimeout(read, TimeUnit.MILLISECONDS)
+          .writeTimeout(write, TimeUnit.MILLISECONDS)
           .build();
 
   @Value("${quotes_url}")

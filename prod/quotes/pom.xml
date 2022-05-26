@@ -16,10 +16,10 @@
   <description>Quotes service in Spring Boot</description>
 
   <properties>
-    <java.version>11</java.version>
+    <java.version>17</java.version>
     <spring-native.version>0.11.5</spring-native.version>
     <native-buildtools.version>0.9.11</native-buildtools.version>
-		<spring-cloud.version>2021.0.2</spring-cloud.version>
+	<spring-cloud.version>2021.0.2</spring-cloud.version>
     <testcontainers.version>1.17.2</testcontainers.version>
     <selenium.version>3.141.59</selenium.version>    
 
@@ -37,10 +37,10 @@
         <artifactId>spring-native</artifactId>
         <version>${spring-native.version}</version>
     </dependency>    
-		<dependency>
-			<groupId>org.springframework.cloud</groupId>
-			<artifactId>spring-cloud-function-web</artifactId>
-		</dependency>
+    <dependency>
+        <groupId>org.springframework.cloud</groupId>
+        <artifactId>spring-cloud-function-web</artifactId>
+    </dependency>
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-security</artifactId>
@@ -112,27 +112,6 @@
       <scope>test</scope>
     </dependency>    
   </dependencies>
-
-  <!--  Jib Maven plugin-->
-  <!-- <build>
-    <plugins>
-      <plugin>
-        <groupId>com.google.cloud.tools</groupId>
-        <artifactId>jib-maven-plugin</artifactId>
-        <version>3.2.0</version>
-      </plugin>
-      <plugin>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-maven-plugin</artifactId>
-        <configuration>
-          <layers>
-            <enabled>true</enabled>
-            <configuration>${project.basedir}/src/layers.xml</configuration>
-          </layers>
-        </configuration>
-      </plugin>
-    </plugins>
-  </build> -->
 
   <build>
       <plugins>
@@ -236,7 +215,7 @@
                               <enabled>true</enabled>
                           </layers>
                           <image>
-                              <builder>paketobuildpacks/builder:base</builder>
+                              <builder>paketobuildpacks/builder:tiny</builder>
                               <name>${project.artifactId}-jvm</name>
                           </image>
                       </configuration>

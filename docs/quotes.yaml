@@ -2,19 +2,19 @@ apiVersion: serving.knative.dev/v1
 kind: Service
 metadata:
   annotations:
-    client.knative.dev/user-image: gcr.io/dan-workshop-project-332213/quotes-native
+    client.knative.dev/user-image: gcr.io/dan-workshop-project-332213/quotes-jvm
     run.googleapis.com/ingress: all
     run.googleapis.com/ingress-status: all
   labels:
     cloud.googleapis.com/location: us-central1
-  name: quotes-native
+  name: quotes
   namespace: '161275344265'
 spec:
   template:
     metadata:
       annotations:
         autoscaling.knative.dev/maxScale: '100'
-        client.knative.dev/user-image: gcr.io/dan-workshop-project-332213/quotes-native
+        client.knative.dev/user-image: gcr.io/dan-workshop-project-332213/quotes-jvm
         run.googleapis.com/client-name: gcloud
         run.googleapis.com/client-version: 385.0.0
         run.googleapis.com/cloudsql-instances: dan-workshop-project-332213:us-central1:quote-cr-db-instance

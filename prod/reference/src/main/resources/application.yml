@@ -10,9 +10,3 @@ management:
     web:
       exposure:
         include: "*"
-
-quotes_url: http://localhost:8083     
-reference_url: http://localhost:8085
-
-read_timeout: 5000
-write_timeout: 5000

@@ -18,9 +18,9 @@ public class StartupActuatorEndpoint {
     @ReadOperation
     public CustomData customEndpoint() {
         Map<String, Object> details = new LinkedHashMap<>();
-        logger.info("BFF Startup Endpoint: Application is ready to serve traffic !");
+        logger.info("Reference Startup Endpoint: Application is ready to serve traffic !");
 
-        details.put("StartupEndpoint", "BFF Startup Endpoint: Application is ready to serve traffic");
+        details.put("StartupEndpoint", "Reference Startup Endpoint: Application is ready to serve traffic");
 
         CustomData data = new CustomData();
         data.setData(details);

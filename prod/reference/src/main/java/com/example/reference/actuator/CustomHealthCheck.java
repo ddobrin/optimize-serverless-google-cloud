@@ -21,8 +21,8 @@ public class CustomHealthCheck implements HealthIndicator {
                     .withDetail("Custom Health Check Status - failed. Error Code", errorCode).build();
         }
 
-        logger.info("BFF Application: Custom Heaalth Check - passed");
-        return Health.up().withDetail("BFF Application: Custom Health Check Status ", "passed").build();
+        logger.info("Reference Application: Custom Health Check - passed");
+        return Health.up().withDetail("Reference Application: Custom Health Check Status ", "passed").build();
     }
 
     public int check() {

@@ -17,8 +17,6 @@ public class QuotesApplication {
     var procs = Runtime.getRuntime().availableProcessors();
     System.out.println("QuotesApplication: Active processors: " + procs);    
 
-    // SpringApplication app = new SpringApplication(QuotesApplication.class);
-    // app.setDefaultProperties(Collections.singletonMap("server.port", "8083"));
     SpringApplication.run(QuotesApplication.class, args);
   }
 }

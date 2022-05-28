@@ -1,4 +1,4 @@
-package com.example.bff.actuator;
+package com.example.reference.actuator;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;

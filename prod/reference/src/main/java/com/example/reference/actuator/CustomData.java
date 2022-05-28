@@ -1,4 +1,4 @@
-package com.example.bff.actuator;
+package com.example.reference.actuator;
 
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;

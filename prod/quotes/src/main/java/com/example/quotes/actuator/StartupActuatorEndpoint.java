@@ -8,7 +8,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 @Component
-@Endpoint(id="crstartup")
+@Endpoint(id="startup")
 public class StartupActuatorEndpoint {
     @ReadOperation
     public CustomData customEndpoint() {

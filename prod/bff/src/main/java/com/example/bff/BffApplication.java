@@ -4,6 +4,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -24,6 +25,11 @@ public class BffApplication {
 
 	@PostConstruct
     public void init() {
-        logger.info("BffApplication: Post App Construct Initializer"); 
+        logger.info("BffApplication: Post Construct Initializer"); 
     }
+
+	@PreDestroy
+	public void shutDown(){
+		logger.info(BffApplication.class.getSimpleName() + ": received SIGTERM ==> Shutting down resources !");
+	}
 }

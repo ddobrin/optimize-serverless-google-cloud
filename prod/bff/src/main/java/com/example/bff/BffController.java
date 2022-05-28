@@ -7,19 +7,10 @@ import org.springframework.http.ResponseEntity;
 import com.example.data.Data;
 import com.example.data.Quote;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.auth.oauth2.GoogleCredentials;
-import com.google.auth.oauth2.IdTokenCredentials;
-import com.google.auth.oauth2.IdTokenProvider;
 import java.io.IOException;
-import java.util.concurrent.TimeUnit;
 
 import javax.annotation.PostConstruct;
 
-import okhttp3.MediaType;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
-import okhttp3.ResponseBody;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -29,30 +20,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import okhttp3.Response;
+import okhttp3.ResponseBody;
+
 @RestController
 public class BffController {
   // logger
   private static final Log logger = LogFactory.getLog(BffController.class);
-
-  @Value("${read_timeout:5000}")
-  String readTimeout;
-  @Value("${write_timeout:5000}")
-  String writeTimeout;
-
-  static long read;
-  static long write;
-
-  @Value("${read_timeout:5000}")
-  public void setRead(String readTimeout){ BffController.read = Long.valueOf(readTimeout);}; 
-  @Value("${write_timeout:5000}")
-  public void setWrite(String writeTimeout){ BffController.read = Long.valueOf(writeTimeout);}; 
-
-  // Instantiate OkHttpClient
-  private static final OkHttpClient ok =
-      new OkHttpClient.Builder()
-          .readTimeout(read, TimeUnit.MILLISECONDS)
-          .writeTimeout(write, TimeUnit.MILLISECONDS)
-          .build();
 
   @Value("${quotes_url}")
   String quotesURL;
@@ -69,7 +43,7 @@ public class BffController {
   
       // retrieve all quotes
       try {
-        ResponseBody metadata = makeAuthenticatedRequest(referenceURL, "metadata");
+        ResponseBody metadata = ServiceRequests.makeAuthenticatedRequest(referenceURL, "metadata");
 
         logger.info("Metadata:" + metadata.string());
       } catch (IOException e) {
@@ -86,7 +60,7 @@ public class BffController {
 
     // retrieve all quotes
     try {
-      ResponseBody quotes = makeAuthenticatedRequest(quotesURL, "quotes");
+      ResponseBody quotes = ServiceRequests.makeAuthenticatedRequest(quotesURL, "quotes");
 
       return new ResponseEntity<String>(quotes.string(), HttpStatus.OK);
     } catch (IOException e) {
@@ -110,7 +84,7 @@ public class BffController {
     try {
       quoteString = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(quote);
 
-      ResponseBody quotes = makeAuthenticatedPostRequest(quotesURL, "quotes", quoteString);
+      ResponseBody quotes = ServiceRequests.makeAuthenticatedPostRequest(quotesURL, "quotes", quoteString);
       return new ResponseEntity<String>(quotes.string(), HttpStatus.OK);
     } catch (IOException e) {
       logger.error("Failed to post data to the Quotes service:" + e.getMessage());
@@ -124,93 +98,11 @@ public class BffController {
 
     String path = String.format("%s/%s", "quotes", id.toString());
     try {
-      Response status = makeAuthenticatedDeleteRequest(quotesURL, path);
+      Response status = ServiceRequests.makeAuthenticatedDeleteRequest(quotesURL, path);
       return new ResponseEntity<HttpStatus>(HttpStatus.valueOf(status.code()));
     } catch (IOException e) {
       logger.error("Failed to delete data in the Quotes service:", e);
       return new ResponseEntity<HttpStatus>(HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
-
-  public ResponseBody makeAuthenticatedRequest(String url, String path) throws IOException {
-    ResponseBody respBody = null;
-    String target = String.format("%s/%s", url, path);
-
-    // Retrieve Application Default Credentials
-    GoogleCredentials credentials = GoogleCredentials.getApplicationDefault();
-    IdTokenCredentials tokenCredentials =
-        IdTokenCredentials.newBuilder()
-            .setIdTokenProvider((IdTokenProvider) credentials)
-            .setTargetAudience(target)
-            .build();
-
-    // Create an ID token
-    String token = tokenCredentials.refreshAccessToken().getTokenValue();
-    // Instantiate HTTP request
-    // MediaType contentType = MediaType.get("application/json; charset=utf-8");
-    // okhttp3.RequestBody body = okhttp3.RequestBody.create(data, contentType);
-    Request request =
-        new Request.Builder()
-            .url(target)
-            .addHeader("Authorization", "Bearer " + token)
-            //.post(body)
-            .build();
-
-    Response response = ok.newCall(request).execute();
-    return response.body();
-  }
-
-  public ResponseBody makeAuthenticatedPostRequest(String url, String path, String data) throws IOException {
-    ResponseBody respBody = null;
-    String target = String.format("%s/%s", url, path);
-
-    // Retrieve Application Default Credentials
-    GoogleCredentials credentials = GoogleCredentials.getApplicationDefault();
-    IdTokenCredentials tokenCredentials =
-        IdTokenCredentials.newBuilder()
-            .setIdTokenProvider((IdTokenProvider) credentials)
-            .setTargetAudience(target)
-            .build();
-
-    // Create an ID token
-    String token = tokenCredentials.refreshAccessToken().getTokenValue();
-    // Instantiate HTTP request
-    MediaType contentType = MediaType.get("application/json; charset=utf-8");
-    okhttp3.RequestBody body = okhttp3.RequestBody.create(data, contentType);
-    Request request =
-        new Request.Builder()
-            .url(target)
-            .addHeader("Authorization", "Bearer " + token)
-            .post(body)
-            .build();
-
-    Response response = ok.newCall(request).execute();
-    return respBody = response.body();
-  }  
-
-  public Response makeAuthenticatedDeleteRequest(String url, String path) throws IOException {
-    ResponseBody respBody = null;
-    String target = String.format("%s/%s", url, path);
-
-
-    // Retrieve Application Default Credentials
-    GoogleCredentials credentials = GoogleCredentials.getApplicationDefault();
-    IdTokenCredentials tokenCredentials =
-        IdTokenCredentials.newBuilder()
-            .setIdTokenProvider((IdTokenProvider) credentials)
-            .setTargetAudience(target)
-            .build();
-
-    // Create an ID token
-    String token = tokenCredentials.refreshAccessToken().getTokenValue();
-    Request request =
-        new Request.Builder()
-            .url(target)
-            .addHeader("Authorization", "Bearer " + token)
-            .delete()
-            .build();
-
-    Response response = ok.newCall(request).execute();
-    return response;
-  }  
 }

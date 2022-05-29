@@ -7,9 +7,9 @@ import org.springframework.boot.actuate.health.HealthIndicator;
 import org.springframework.stereotype.Component;
 
 @Component("customHealthCheck")
-public class CustomHealthCheck implements HealthIndicator {
+public class HealthCheck implements HealthIndicator {
     // logger
-    private static final Log logger = LogFactory.getLog(CustomHealthCheck.class);
+    private static final Log logger = LogFactory.getLog(HealthCheck.class);
 
     @Override
     public Health health() {

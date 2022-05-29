@@ -1,11 +1,11 @@
-package com.example;
+package com.example.quotes;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
-import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.testcontainers.DockerClientFactory.TESTCONTAINERS_LABEL;
 
+import com.example.quotes.data.Quote;
 import com.github.dockerjava.api.model.Container;
 import java.util.Map;
 

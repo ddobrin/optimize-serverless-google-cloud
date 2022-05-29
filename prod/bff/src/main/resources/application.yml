@@ -14,5 +14,5 @@ management:
 quotes_url: http://localhost:8083     
 reference_url: http://localhost:8085
 
-read_timeout: 5000
-write_timeout: 5000
+read_timeout: ${READ_TIMEOUT:10000}
+write_timeout: ${WRITE_TIMEOUT:10000}

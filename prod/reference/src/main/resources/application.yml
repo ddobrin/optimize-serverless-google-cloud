@@ -10,3 +10,5 @@ management:
     web:
       exposure:
         include: "*"
+
+delay: ${DELAY:5}

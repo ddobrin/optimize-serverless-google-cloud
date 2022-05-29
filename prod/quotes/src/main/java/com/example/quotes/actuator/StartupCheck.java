@@ -1,7 +1,5 @@
-package com.example.reference.actuator;
+package com.example.quotes.actuator;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.springframework.boot.actuate.endpoint.annotation.Endpoint;
 import org.springframework.boot.actuate.endpoint.annotation.ReadOperation;
 import org.springframework.stereotype.Component;
@@ -11,16 +9,11 @@ import java.util.Map;
 
 @Component
 @Endpoint(id="startup")
-public class StartupActuatorEndpoint {
-    // logger
-    private static final Log logger = LogFactory.getLog(StartupActuatorEndpoint.class);
-
+public class StartupCheck {
     @ReadOperation
     public CustomData customEndpoint() {
         Map<String, Object> details = new LinkedHashMap<>();
-        logger.info("Reference Startup Endpoint: Application is ready to serve traffic !");
-
-        details.put("StartupEndpoint", "Reference Startup Endpoint: Application is ready to serve traffic");
+        details.put("StartupEndpoint", "Everything looks good at the startup endpoint");
 
         CustomData data = new CustomData();
         data.setData(details);

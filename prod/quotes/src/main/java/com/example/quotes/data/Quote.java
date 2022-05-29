@@ -1,4 +1,4 @@
-package com.example;
+package com.example.quotes.data;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

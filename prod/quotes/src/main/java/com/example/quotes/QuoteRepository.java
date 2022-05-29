@@ -1,5 +1,6 @@
-package com.example;
+package com.example.quotes;
 
+import com.example.quotes.data.Quote;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 

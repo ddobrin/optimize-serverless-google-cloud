@@ -1,9 +1,10 @@
-package com.example;
+package com.example.quotes;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import com.example.quotes.data.Quote;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

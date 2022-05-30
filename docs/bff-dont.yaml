@@ -9,7 +9,7 @@ metadata:
     run.googleapis.com/ingress-status: all
   labels:
     cloud.googleapis.com/location: us-central1
-  name: bff
+  name: bff-dont
   namespace: '161275344265'
 spec:
   template:
@@ -19,8 +19,8 @@ spec:
         client.knative.dev/user-image: gcr.io/dan-workshop-project-332213/bff-jvm
         run.googleapis.com/client-name: gcloud
         run.googleapis.com/client-version: 386.0.0
-        autoscaling.knative.dev/minScale: '1'
-        run.googleapis.com/cpu-throttling: 'false'
+        autoscaling.knative.dev/minScale: '0'
+        # run.googleapis.com/cpu-throttling: 'false'
     spec:
       containerConcurrency: 20
       containers:
@@ -28,9 +28,9 @@ spec:
         - name: SERVER.PORT
           value: '8080'
         - name: QUOTES_URL
-          value: https://quotes-ieuwkt6jkq-uc.a.run.app
+          value: https://quotes-dont-ieuwkt6jkq-uc.a.run.app
         - name: REFERENCE_URL
-          value: https://reference-ieuwkt6jkq-uc.a.run.app
+          value: https://reference-dont-ieuwkt6jkq-uc.a.run.app
         - name: READ_TIMEOUT
           value: '10000'
         - name: WRITE_TIMEOUT
@@ -43,13 +43,13 @@ spec:
           limits:
             cpu: 4000m
             memory: 4Gi
-        startupProbe:
-          httpGet:
-            path: /actuator/startup
-          # initialDelaySeconds: 5
-        livenessProbe:
-          httpGet:
-            path: /actuator/health
+        # startupProbe:
+        #   httpGet:
+        #     path: /actuator/startup
+        #   # initialDelaySeconds: 5
+        # livenessProbe:
+        #   httpGet:
+        #     path: /actuator/health
       serviceAccountName: 161275344265-compute@developer.gserviceaccount.com
       timeoutSeconds: 300
   traffic:

@@ -14,7 +14,7 @@ http -A bearer -a $TOKEN https://reference-ieuwkt6jkq-uc.a.run.app/actuator
 
 
 ---
-
+TEST CR:
 http -A bearer -a $TOKEN https://bff-ieuwkt6jkq-uc.a.run.app/quotes
 http -A bearer -a $TOKEN https://bff-ieuwkt6jkq-uc.a.run.app/actuator/health
 http -A bearer -a $TOKEN https://bff-ieuwkt6jkq-uc.a.run.app/actuator/startup

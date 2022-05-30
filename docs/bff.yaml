@@ -15,12 +15,13 @@ spec:
   template:
     metadata:
       annotations:
-        autoscaling.knative.dev/maxScale: '100'
+        autoscaling.knative.dev/maxScale: '10'
         client.knative.dev/user-image: gcr.io/dan-workshop-project-332213/bff-jvm
         run.googleapis.com/client-name: gcloud
         run.googleapis.com/client-version: 386.0.0
+        autoscaling.knative.dev/minScale: '1'
     spec:
-      containerConcurrency: 80
+      containerConcurrency: 20
       containers:
       - env:
         - name: SERVER.PORT
@@ -31,18 +32,20 @@ spec:
           value: https://reference-ieuwkt6jkq-uc.a.run.app
         - name: READ_TIMEOUT
           value: '10000'
+        - name: WRITE_TIMEOUT
+          value: '10000'
         image: gcr.io/dan-workshop-project-332213/bff-jvm
         ports:
         - containerPort: 8080
           name: http1
         resources:
           limits:
-            cpu: 1000m
-            memory: 2Gi
+            cpu: 4000m
+            memory: 4Gi
         startupProbe:
           httpGet:
             path: /actuator/startup
-          initialDelaySeconds: 5
+          # initialDelaySeconds: 5
         livenessProbe:
           httpGet:
             path: /actuator/health

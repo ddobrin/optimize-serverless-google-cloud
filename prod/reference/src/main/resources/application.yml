@@ -4,7 +4,10 @@ server:
 management:
   endpoint:
     health:
-      show-details: always
+      show-details: ALWAYS
+  health:
+    diskspace:  
+      enabled: false
   endpoints:
     enabled-by-default: true
     web:

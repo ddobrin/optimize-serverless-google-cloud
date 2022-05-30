@@ -18,6 +18,9 @@ public class ReferenceApplication {
 		Runtime r = Runtime.getRuntime();
 		logger.info("ReferenceApplication: Active processors: " + r.availableProcessors()); 
 		logger.info("ReferenceApplication: Total memory: " + r.totalMemory()); 
+		logger.info("ReferenceApplication: Free memory: " + r.freeMemory()); 
+		logger.info("ReferenceApplication: Max memory: " + r.maxMemory()); 
+
 
 		SpringApplication.run(ReferenceApplication.class, args);
 	}

@@ -16,7 +16,7 @@ public class HealthCheck implements HealthIndicator {
         int errorCode = check(); // perform some specific health check
 
         if (errorCode != 0) {
-            logger.error("BFF Application: failed health check with error code " + errorCode);
+            logger.error("Reference Application: failed health check with error code " + errorCode);
             return Health.down()
                     .withDetail("Custom Health Check Status - failed. Error Code", errorCode).build();
         }

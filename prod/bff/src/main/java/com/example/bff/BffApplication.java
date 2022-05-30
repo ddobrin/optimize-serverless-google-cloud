@@ -18,6 +18,8 @@ public class BffApplication {
 		Runtime r = Runtime.getRuntime();
 		logger.info("BffApplication: Active processors: " + r.availableProcessors()); 
 		logger.info("BffApplication: Total memory: " + r.totalMemory()); 
+		logger.info("BffApplication: Free memory: " + r.freeMemory()); 
+		logger.info("BffApplication: Max memory: " + r.maxMemory()); 
 				
 		SpringApplication.run(BffApplication.class, args);
 		logger.info("BffApplication: Running app");

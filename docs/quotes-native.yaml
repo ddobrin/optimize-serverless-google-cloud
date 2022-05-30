@@ -2,25 +2,25 @@ apiVersion: serving.knative.dev/v1
 kind: Service
 metadata:
   annotations:
-    # healthcheck
-    run.googleapis.com/launch-stage: ALPHA
-    client.knative.dev/user-image: gcr.io/dan-workshop-project-332213/quotes-jvm
+    client.knative.dev/user-image: gcr.io/dan-workshop-project-332213/quotes-native
     run.googleapis.com/ingress: all
     run.googleapis.com/ingress-status: all
   labels:
     cloud.googleapis.com/location: us-central1
-  name: quotes
+  name: quotes-native
   namespace: '161275344265'
 spec:
   template:
     metadata:
       annotations:
         autoscaling.knative.dev/maxScale: '100'
-        client.knative.dev/user-image: gcr.io/dan-workshop-project-332213/quotes-jvm
-        run.googleapis.com/client-name: cloud-console
+        client.knative.dev/user-image: gcr.io/dan-workshop-project-332213/quotes-native
+        run.googleapis.com/client-name: gcloud
+        run.googleapis.com/client-version: 386.0.0
         run.googleapis.com/cloudsql-instances: dan-workshop-project-332213:us-central1:quote-cr-db-instance
-        run.googleapis.com/vpc-access-connector: projects/dan-workshop-project-332213/locations/us-central1/connectors/quote-connector
+        run.googleapis.com/vpc-access-connector: quote-connector
         run.googleapis.com/vpc-access-egress: private-ranges-only
+      name: quotes-native-00001-lot
     spec:
       containerConcurrency: 80
       containers:
@@ -44,24 +44,16 @@ spec:
         - name: SPRING_PROFILES_ACTIVE
           value: cloud-dev
         - name: TARGET
-          value: Cloud Run - Postgres 14 - Java 17
-        image: gcr.io/dan-workshop-project-332213/quotes-jvm
+          value: Native Image - Cloud Run - Postgres 14 - Java 17
+        image: gcr.io/dan-workshop-project-332213/quotes-native
         ports:
         - containerPort: 8080
           name: http1
-        startupProbe:
-          httpGet:
-            path: /actuator/startup
-          # failureThreshold: 30 
-          # periodSeconds: 10 
-        livenessProbe:
-          httpGet:
-            path: /actuator/health
         resources:
           limits:
             cpu: 1000m
             memory: 2Gi
-      serviceAccountName: 161275344265-compute@developer.gserviceaccount.com
+      serviceAccountName: cr-quote-service-account
       timeoutSeconds: 300
   traffic:
   - latestRevision: true

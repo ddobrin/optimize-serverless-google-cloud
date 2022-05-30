@@ -14,8 +14,12 @@ import org.springframework.nativex.hint.ResourceHint;
 public class QuotesApplication {
 
   public static void main(String[] args) {
-    var procs = Runtime.getRuntime().availableProcessors();
-    System.out.println("QuotesApplication: Active processors: " + procs);    
+    Runtime r = Runtime.getRuntime();
+    System.out.println("QuotesApplication: Active processors: " + r.availableProcessors());    
+		System.out.println("QuotesApplication: Total memory: " + r.totalMemory()); 
+		System.out.println("QuotesApplication: Free memory: " + r.freeMemory()); 
+		System.out.println("QuotesApplication: Max memory: " + r.maxMemory()); 
+
 
     SpringApplication.run(QuotesApplication.class, args);
   }

@@ -3,11 +3,11 @@
 This material dives into the `features of optimized, modern Java applications deployed in Cloud Run in the Google Cloud`. It is intended to be a `living repo` where new optimizations will constantly be added.
 
 ## Why this work
-Talking about optimizing an app for Cloud Run should always be framed in the larger context of production readiness of a service for a Cloud Run PROD environment. 
+App Optimization for Cloud Run should always be framed in the larger context of production readiness of a service for a Cloud Run PROD environment. 
 
-There are multiple facets to `writing effective services for serverless environments` and they all revolve around the combination of service design, implementation, testing, configuration with environment configuration and optimization best practices. 
+There are multiple aspects to `writing effective services for serverless environments` and they all revolve around the combination of service design, implementation, testing, configuration with environment configuration and optimization best practices. 
 
-Optimization is `shifted-left` and part of the service build from the beginning.
+Optimization is `shifted-left` and part of the service dev lifecycle from the beginning.
 
 ## How to think about production-readiness 
 You generally think that a **production-ready cloud service must be:**
@@ -20,13 +20,13 @@ You generally think that a **production-ready cloud service must be:**
 
 ## How to think about optimizations
 Optimizing any app for Cloud Run requires a balance of different aspects to be considered, therefore it is important to always have a clear picture of **what it is that you are optimizing for**:
-- start-up time
-- execution latency
-- resource consumption (memory & CPU)
-- concurrency
-- image size
-- easy maintainability
-- lower costs
+* start-up time
+* execution latency
+* resource consumption (memory & CPU)
+* concurrency
+* image size
+* easy maintainability
+* lower costs
 
 ## Outcomes
 This material contains lessons learned from participation in various projects or publicly available knowledge and documentation. 
@@ -37,8 +37,8 @@ You can:
 
 Materials:
 * production-readiness `checklist`
-* `complete set` of services (code, config, environment setup) using best practices
-* alternative versions of the services along the lines of `what is happening if you don't do this`
+* app w/`complete set` of services (code, config, environment setup) following best practices
+* alternate versions of the services showing `what is happening if you don't do this`
 
 ## Service production-readiness checklist
 

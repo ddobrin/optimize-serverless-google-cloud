@@ -43,6 +43,7 @@ spec:
         livenessProbe:
           httpGet:
             path: /actuator/health
+          periodSeconds: 60
       serviceAccountName: cr-reference-service-account
       timeoutSeconds: 300
   traffic:

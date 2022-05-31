@@ -39,7 +39,8 @@ time http -A bearer -a $TOKEN DELETE https://bff-ieuwkt6jkq-uc.a.run.app/quotes/
 curl -v -X DELETE https://bff-ieuwkt6jkq-uc.a.run.app/quotes/6
 time http -A bearer -a $TOKEN DELETE https://bff-ieuwkt6jkq-uc.a.run.app/quotes/6  
 
-
+gcloud run services get-iam-policy reference --region us-central1
+gcloud run services get-iam-policy quotes --region us-central1
 
 
 

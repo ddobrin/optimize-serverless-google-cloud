@@ -49,6 +49,7 @@ spec:
         livenessProbe:
           httpGet:
             path: /actuator/health
+          periodSeconds: 60
       serviceAccountName: cr-bff-service-account@dan-workshop-project-332213.iam.gserviceaccount.com
       timeoutSeconds: 300
   traffic:

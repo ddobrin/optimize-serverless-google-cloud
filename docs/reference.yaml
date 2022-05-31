@@ -19,7 +19,7 @@ spec:
         client.knative.dev/user-image: gcr.io/dan-workshop-project-332213/reference-jvm
         run.googleapis.com/client-name: gcloud
         run.googleapis.com/client-version: 386.0.0
-        # run.googleapis.com/cpu-throttling: 'true'
+        run.googleapis.com/cpu-throttling: 'false'
         autoscaling.knative.dev/minScale: '1'
     spec:
       containerConcurrency: 20
@@ -28,7 +28,7 @@ spec:
         - name: SERVER.PORT
           value: '8080'
         - name: DELAY
-          value: '1'
+          value: '0'
         image: gcr.io/dan-workshop-project-332213/reference-jvm
         ports:
         - containerPort: 8080

@@ -18,6 +18,8 @@ spec:
         autoscaling.knative.dev/maxScale: '10'
         client.knative.dev/user-image: gcr.io/dan-workshop-project-332213/bff-jvm
         run.googleapis.com/client-name: cloud-console
+        run.googleapis.com/cpu-throttling: 'false'
+        autoscaling.knative.dev/minScale: '1'        
     spec:
       containerConcurrency: 20
       containers:
@@ -47,7 +49,7 @@ spec:
         livenessProbe:
           httpGet:
             path: /actuator/health
-      serviceAccountName: 161275344265-compute@developer.gserviceaccount.com
+      serviceAccountName: cr-bff-service-account@dan-workshop-project-332213.iam.gserviceaccount.com
       timeoutSeconds: 300
   traffic:
   - latestRevision: true

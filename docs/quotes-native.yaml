@@ -13,16 +13,16 @@ spec:
   template:
     metadata:
       annotations:
-        autoscaling.knative.dev/maxScale: '100'
+        autoscaling.knative.dev/maxScale: '10'
         client.knative.dev/user-image: gcr.io/dan-workshop-project-332213/quotes-native
         run.googleapis.com/client-name: gcloud
         run.googleapis.com/client-version: 386.0.0
         run.googleapis.com/cloudsql-instances: dan-workshop-project-332213:us-central1:quote-cr-db-instance
         run.googleapis.com/vpc-access-connector: quote-connector
         run.googleapis.com/vpc-access-egress: private-ranges-only
-      name: quotes-native-00001-lot
+        run.googleapis.com/cpu-throttling: 'false'
     spec:
-      containerConcurrency: 80
+      containerConcurrency: 20
       containers:
       - env:
         - name: INSTANCE_CONNECTION_NAME
@@ -51,8 +51,8 @@ spec:
           name: http1
         resources:
           limits:
-            cpu: 1000m
-            memory: 2Gi
+            cpu: 4000m
+            memory: 4Gi
       serviceAccountName: cr-quote-service-account
       timeoutSeconds: 300
   traffic:

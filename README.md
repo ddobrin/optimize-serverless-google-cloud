@@ -1,24 +1,25 @@
 # Optimize Java Apps in Cloud Run - Google Cloud
 
-This repo dives into the `characteristics of optimized, modern Java applications deployed in Cloud Run in the Google Cloud`. It is intended to be a `living repo` where new optimizations will constantly be added.
+This material dives into the `features of optimized, modern Java applications deployed in Cloud Run in the Google Cloud`. It is intended to be a `living repo` where new optimizations will constantly be added.
 
-## Why this repo 
-Optimizing an app for Cloud Run is always framed in the larger context of production readiness for a Cloud Run PROD environment. 
+## Why this work
+Talking about optimizing an app for Cloud Run should always be framed in the larger context of production readiness of a service for a Cloud Run PROD environment. 
 
-It contains a number of lessons learned from participation in various projects over the yars or publicly available knowledge and documentation. Revisit them before deploying microservices to Production in a serverless environment.
+There are multiple facets to `writing effective services for serverless environments` and they all revolve around the combination of service design, implementation, testing, configuration with environment configuration and optimization best practices. 
+
+Optimization is `shifted-left` and part of the service build from the beginning.
 
 ## How to think about production-readiness 
-We generally think that a **production-ready service is:**
+You generally think that a **production-ready cloud service must be:**
 * Stable and Reliable
 * Scalable and Performant
 * Fault Tolerant without any single point of failure
 * Properly Monitored
 * Documented and Understood
-
-This material dives into these characteristics as part of a production-ready service checklist and can be used for optimization workshops or discussion around production readiness.
+* Properly secured
 
 ## How to think about optimizations
-Optimizing any app for Cloud Run requires a balance of different aspects to be considered, therefore it is important to always have a clear picture of **what it is that we are optimizing for**:
+Optimizing any app for Cloud Run requires a balance of different aspects to be considered, therefore it is important to always have a clear picture of **what it is that you are optimizing for**:
 - start-up time
 - execution latency
 - resource consumption (memory & CPU)
@@ -27,19 +28,29 @@ Optimizing any app for Cloud Run requires a balance of different aspects to be c
 - easy maintainability
 - lower costs
 
-Some aspects need to be balanced, others such as container and runtime security are mandatory.
+## Outcomes
+This material contains lessons learned from participation in various projects or publicly available knowledge and documentation. 
+
+You can:
+* revisit the production-readiness checklist as you build the service and review it before deploying services to a Production serverless environment
+* use the material as a starting point for optimization workshops or discussions around production readiness
+
+Materials:
+* production-readiness `checklist`
+* `complete set` of services (code, config, environment setup) using best practices
+* alternative versions of the services along the lines of `what is happening if you don't do this`
 
 ## Service production-readiness checklist
 
 ![Production Readiness Checklist](images/Main.png)
 
 ## The App
-A set of services is provided to illustrate the different points, following this simple architecture:
+A set of services is provided to illustrate the different aspects, following this simple architecture:
 ![App](images/AppArch.png)
 
 
 ## Project & Source Code
-Source code recommendations can be grouped into few distinct categories:
+Source code recommendations can be grouped into the following distinct categories:
 
 ### Project
 * Java - Use latest LTS version 

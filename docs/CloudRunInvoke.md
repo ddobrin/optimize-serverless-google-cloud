@@ -89,6 +89,18 @@ gcloud iam service-accounts create cr-bff-service-account \
 gcloud iam service-accounts create cr-reference-service-account \
   --display-name="BFF service Cloud Run Service Account"
 
+gcloud run services add-iam-policy-binding reference \
+  --member serviceAccount:cr-bff-service-account@dan-workshop-project-332213.iam.gserviceaccount.com \
+  --role roles/run.invoker
+
+gcloud run services add-iam-policy-binding quotes \
+  --member serviceAccount:cr-bff-service-account@dan-workshop-project-332213.iam.gserviceaccount.com \
+  --role roles/run.invoker
+
+gcloud run services add-iam-policy-binding quotes-native \
+  --member serviceAccount:cr-bff-service-account@dan-workshop-project-332213.iam.gserviceaccount.com \
+  --role roles/run.invoker
+
 REFERENCE SERVICE
 ===
 

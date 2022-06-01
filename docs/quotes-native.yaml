@@ -42,7 +42,7 @@ spec:
         - name: SERVER.PORT
           value: '8080'
         - name: SPRING_PROFILES_ACTIVE
-          value: cloud-dev
+          value: cloud-prod
         - name: TARGET
           value: Native Image - Cloud Run - Postgres 14 - Java 17
         image: gcr.io/dan-workshop-project-332213/quotes-native

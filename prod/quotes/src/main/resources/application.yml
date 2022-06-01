@@ -15,7 +15,7 @@ target: local
 spring:
   config:
     activate:
-      on-profile: cloud-dev
+      on-profile: cloud-prod
   datasource:
     url: 'jdbc:postgresql://${DB_HOST:127.0.0.1}/${DB_DATABASE:quote_db}'
     username: '${DB_USER:user}'

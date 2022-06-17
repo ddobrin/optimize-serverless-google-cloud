@@ -53,18 +53,20 @@ A set of services is provided to illustrate the different aspects, following thi
 ## Project & Source Code
 Source code recommendations can be grouped into the following distinct categories:
 
-* Java [[see]](docs/checklists/java/Code.md)
-* Go
+* [Java](docs/checklists/java/Code.md)
+* [Golang]()
 
 ## Runtime Optimizations
 
-* Java [[see]](docs/checklists/java/JVM.md)
-* Go
+* [Java](docs/checklists/java/JVM.md)
+* [Golang]
 
 ## Testing 
 
-* Java [[see]](docs/checklists/java/Test.md)
-* Go
+* [Java](docs/checklists/java/Test.md)
+* [Golang]
+
+**WIP**
 
 ## Build and Packaging
 * Use cloud-native buildpacks to build the container images

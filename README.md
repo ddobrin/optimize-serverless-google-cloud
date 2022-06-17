@@ -1,4 +1,4 @@
-# Optimize Java Apps in Cloud Run - Google Cloud
+# Optimize Serverless Apps In Google Cloud
 
 This material dives into the `features of optimized, modern Java applications deployed in Cloud Run in the Google Cloud`. It is intended to be a `living repo` where new optimizations will constantly be added.
 

@@ -17,6 +17,7 @@ management:
 # Downstream Service URLs
 quotes_url: http://localhost:8083     
 reference_url: http://localhost:8085
+faulty_url: http://localhost:8087
 
 # OKKHttp3 timeouts
 read_timeout: ${READ_TIMEOUT:10000}

@@ -1,30 +1,22 @@
 package com.example.bff;
 
 import com.example.bff.actuator.StartupCheck;
-import okhttp3.OkHttpClient;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-
 import com.example.data.Data;
 import com.example.data.Quote;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import java.io.IOException;
-import java.util.concurrent.TimeUnit;
-
-import javax.annotation.PostConstruct;
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
-
+import okhttp3.OkHttpClient;
 import okhttp3.Response;
 import okhttp3.ResponseBody;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import javax.annotation.PostConstruct;
+import java.io.IOException;
+import java.util.concurrent.TimeUnit;
 
 @RestController
 public class BffController {
@@ -36,6 +28,9 @@ public class BffController {
 
   @Value("${reference_url}")
   String referenceURL;
+
+  @Value("${faulty_url}")
+  String faultyUrl;
 
   static long read;
   static long write;
@@ -58,7 +53,7 @@ public class BffController {
 
   @PostConstruct
   public void init() {
-      logger.info("BffController: Post Construct Initializer"); 
+      logger.info("BffController: Post Construct Initializer");
       if(referenceURL==null){
         logger.error("Reference Service URL has not been configured. Please set the QUOTES_URL env variable");
         StartupCheck.down();
@@ -100,6 +95,19 @@ public class BffController {
       ResponseBody quotes = ServiceRequests.makeAuthenticatedRequest(ok, quotesURL, "quotes");
 
       return new ResponseEntity<String>(quotes.string(), HttpStatus.OK);
+    } catch (IOException e) {
+      logger.error("Failed to retrieve data from the Quotes service:", e);
+      return new ResponseEntity<String>(HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+  }
+
+  @GetMapping("/faulty")
+  public ResponseEntity<String> getFromFaultyService() {
+    // retrieve all quotes
+    try {
+      ResponseBody faultyResponse = ServiceRequests.makeAuthenticatedRequest(ok, faultyUrl, "");
+
+      return new ResponseEntity<String>(faultyResponse.string(), HttpStatus.OK);
     } catch (IOException e) {
       logger.error("Failed to retrieve data from the Quotes service:", e);
       return new ResponseEntity<String>(HttpStatus.INTERNAL_SERVER_ERROR);

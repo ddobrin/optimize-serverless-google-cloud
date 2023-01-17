@@ -40,10 +40,20 @@ Materials:
 * app w/`complete set` of services (code, config, environment setup) following best practices
 * alternate versions of the services showing `what is happening if you don't do this`
 
-## Service production-readiness checklist
+## Service Production-readiness Checklist
 
-![Production Readiness Checklist](images/Main.png)
-
+```
+1.  Project and Source Code
+2.  JVM Optimization
+3.  Local-and-integration testing
+4.  Build & Package
+5.  Observability
+6.  Operations & Resiliency
+7.  Caching
+8.  Database
+9.  Security
+10. Documentation
+```
 ## The App
 A set of services is provided to illustrate the different aspects, following this simple architecture:
 ![App](images/AppArch.png)
@@ -57,9 +67,9 @@ Source code recommendations can be grouped into the following distinct categorie
     * Java 17 currently 
     * Better performance, security and resource consumption are achieved by simply building and running the app with the latest Java LTS release
 * Maven - Use the latest version
-    * 3.8.5 currently  
+    * 3.8.7 currently  
 * Gradle - Use the latest version 
-    * 7.4.2 currently
+    * 7.6 currently
 * Dependency management - Use a bill-of-materials(BOM) for managing dependencies and versions consistently for libraries that work together without linkage errors
     * [Spring Boot dependencies](https://docs.spring.io/spring-boot/docs/current/reference/html/using.html#using.build-systems.dependency-management)
     * [Spring Cloud dependencies](https://spring.io/projects/spring-cloud)
@@ -67,7 +77,7 @@ Source code recommendations can be grouped into the following distinct categorie
     * [Google Cloud BOM](https://cloud.google.com/java/docs/bom)
     
 ### Spring
-* Use the latest version of Spring - 2.7.0 currently
+* Use the latest version of Spring - 3.0.1 currently
     * Spring releases constantly fix issues and CVEs in the frameworks and their dependencies
 * Use [Spring profiles](https://docs.spring.io/spring-boot/docs/1.2.0.M1/reference/html/boot-features-profiles.html) for environment specific configuration segregation 
 * Do NOT include Developer tools in Production build
